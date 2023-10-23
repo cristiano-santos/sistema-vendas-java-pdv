@@ -6,7 +6,7 @@ import model.ModelProduto;
 
 /**
  *
- * @author crist
+ * @author cristiano santos
  */
 public class DaoProduto extends ConexaoMySql {
 
@@ -35,7 +35,7 @@ public class DaoProduto extends ConexaoMySql {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                    "DELETE FROM tbl_peoduto WHERE pk_id_produto = '" + pIdProduto + "'"
+                    "DELETE FROM tbl_produto WHERE pk_id_produto = '" + pIdProduto + "'"
             );
         } catch (Exception e) {
             e.printStackTrace();

@@ -8,7 +8,7 @@ import model.ModelCliente;
 
 /**
  *
- * @author crist
+ * @author cristiano santos
  */
 public class ViewCliente extends javax.swing.JFrame {
     
@@ -24,7 +24,8 @@ public class ViewCliente extends javax.swing.JFrame {
         initComponents();
         carregarCliente();
         setLocationRelativeTo(null);
-        habilitarDesabilitarCampos(false);
+        this.habilitarDesabilitarCampos(false);
+        this.limparCampos();
     }
 
     /**
@@ -289,19 +290,10 @@ public class ViewCliente extends javax.swing.JFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        modelCliente.setCliNome(this.jTextNome.getText().toUpperCase());
-        modelCliente.setCliEndereco(this.jTextEndereco.getText().toUpperCase());
-        modelCliente.setCliBairro(this.jTextBairro.getText().toUpperCase());
-        modelCliente.setCliCidade(this.jTextCidade.getText().toUpperCase());
-        modelCliente.setCliUf(this.jComboBoxUF.getSelectedItem().toString());
-        modelCliente.setCliCep(this.jTextCep.getText());
-        modelCliente.setCliTelefone(this.jTextTelefone.getText());
-        
-        if (controllerCliente.salvarClienteController(modelCliente) > 0) {
-            JOptionPane.showMessageDialog(this, "Cliente Cadastrado com Sucesso!", "INFORMAÇÃO", JOptionPane.INFORMATION_MESSAGE);
-            this.carregarCliente();
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao cadastrar Cliente.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        if(alterarSalvar.equals("salvar")){
+            this.salvarCliente();
+        }else if(alterarSalvar.equals("alterar")){
+            this.alterarCliente();
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -309,11 +301,15 @@ public class ViewCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         int linha = jTbCliente.getSelectedRow();
         int codigoCliente = (int) jTbCliente.getValueAt(linha, 0);
-        if (controllerCliente.excluirClienteController(codigoCliente)) {
+        try {
+            if (controllerCliente.excluirClienteController(codigoCliente)) {
             JOptionPane.showMessageDialog(this, "Cliente Excluído com Sucesso!", "INFORMAÇÃO", JOptionPane.INFORMATION_MESSAGE);
             this.carregarCliente();
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao excluir cliente.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Codigo inválido ou nenhum registro selecionado.","ALERTA", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
@@ -321,6 +317,7 @@ public class ViewCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         alterarSalvar = "alterar";
         this.habilitarDesabilitarCampos(true);
+        jBtNovo.setEnabled(false);
         int linha = jTbCliente.getSelectedRow();
         try {
             int codigoCliente = (int) jTbCliente.getValueAt(linha, 0);
@@ -335,6 +332,7 @@ public class ViewCliente extends javax.swing.JFrame {
             jTextTelefone.setText(modelCliente.getCliTelefone());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado.", "ALERTA", JOptionPane.WARNING_MESSAGE);
+            this.habilitarDesabilitarCampos(false);
         }
         
     }//GEN-LAST:event_jBtAlterarActionPerformed
@@ -343,6 +341,7 @@ public class ViewCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.habilitarDesabilitarCampos(false);
         this.limparCampos();
+        jBtNovo.setEnabled(true);
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -406,6 +405,43 @@ public class ViewCliente extends javax.swing.JFrame {
         }
     }
     
+    private void salvarCliente(){
+        modelCliente.setCliNome(this.jTextNome.getText().toUpperCase());
+        modelCliente.setCliEndereco(this.jTextEndereco.getText().toUpperCase());
+        modelCliente.setCliBairro(this.jTextBairro.getText().toUpperCase());
+        modelCliente.setCliCidade(this.jTextCidade.getText().toUpperCase());
+        modelCliente.setCliUf(this.jComboBoxUF.getSelectedItem().toString());
+        modelCliente.setCliCep(this.jTextCep.getText());
+        modelCliente.setCliTelefone(this.jTextTelefone.getText());
+        
+        if (controllerCliente.salvarClienteController(modelCliente) > 0) {
+            JOptionPane.showMessageDialog(this, "Cliente Cadastrado com Sucesso!", "INFORMAÇÃO", JOptionPane.INFORMATION_MESSAGE);
+            this.carregarCliente();
+            this.limparCampos();
+            this.habilitarDesabilitarCampos(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar Cliente.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void alterarCliente(){
+        modelCliente.setCliNome(this.jTextNome.getText());
+        modelCliente.setCliEndereco(this.jTextEndereco.getText());
+        modelCliente.setCliBairro(this.jTextBairro.getText());
+        modelCliente.setCliCidade(this.jTextCidade.getText());
+        modelCliente.setCliUf(this.jComboBoxUF.getSelectedItem().toString());
+        modelCliente.setCliCep(this.jTextCep.getText());
+        modelCliente.setCliTelefone(this.jTextTelefone.getText());
+        if(controllerCliente.alterarClienteController(modelCliente)){
+            JOptionPane.showMessageDialog(this, "Cliente Alterado com Sucesso!","INFORMAÇÃO",JOptionPane.INFORMATION_MESSAGE);
+            this.carregarCliente();
+            this.limparCampos();
+            this.habilitarDesabilitarCampos(false);
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro ao alterar cliente.","ERRO",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     private void habilitarDesabilitarCampos(boolean condicao) {
         jTextNome.setEnabled(condicao);
         jTextEndereco.setEnabled(condicao);
@@ -414,6 +450,7 @@ public class ViewCliente extends javax.swing.JFrame {
         jComboBoxUF.setEnabled(condicao);
         jTextCep.setEnabled(condicao);
         jTextTelefone.setEnabled(condicao);
+        jBtSalvar.setEnabled(condicao);
     }
     
     private void limparCampos() {

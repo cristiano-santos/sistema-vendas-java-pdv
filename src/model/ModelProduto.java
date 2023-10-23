@@ -3,7 +3,7 @@ package model;
 
 /**
  *
- * @author crist
+ * @author cristiano santos
  */
 public class ModelProduto {
     

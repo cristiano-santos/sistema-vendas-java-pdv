@@ -6,7 +6,7 @@ import model.ModelProduto;
 
 /**
  *
- * @author crist
+ * @author cristiano santos
  */
 public class ControllerProduto {
     

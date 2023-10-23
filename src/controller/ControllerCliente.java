@@ -6,7 +6,7 @@ import model.ModelCliente;
 
 /**
  *
- * @author crist
+ * @author cristiano santos
  */
 public class ControllerCliente {
     

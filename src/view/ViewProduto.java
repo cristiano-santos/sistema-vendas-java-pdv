@@ -12,7 +12,7 @@ import util.Formatador;
 
 /**
  *
- * @author crist
+ * @author cristiano santos
  */
 public class ViewProduto extends javax.swing.JFrame {
 
@@ -29,7 +29,8 @@ public class ViewProduto extends javax.swing.JFrame {
         initComponents();
         carregarProdutos();
         setLocationRelativeTo(null);
-        habilitarDesabilitarCampos(false);
+        this.habilitarDesabilitarCampos(false);
+        this.limparCampos();
     }
 
     /**
@@ -287,6 +288,7 @@ public class ViewProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.habilitarDesabilitarCampos(false);
         this.limparCampos();
+        jBtNovo.setEnabled(true);
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -299,6 +301,7 @@ public class ViewProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
         alterarSalvar = "alterar";
         this.habilitarDesabilitarCampos(true);
+        jBtNovo.setEnabled(false);
         int linha = jTbProduto.getSelectedRow();
         try {
             int codigoProduto = (int) jTbProduto.getValueAt(linha, 0);
@@ -391,6 +394,7 @@ public class ViewProduto extends javax.swing.JFrame {
         jTextNome.setEnabled(condicao);
         jTextValor.setEnabled(condicao);
         jTextEstoque.setEnabled(condicao);
+        jBtSalvar.setEnabled(condicao);
     }
     
     private void carregarProdutos(){

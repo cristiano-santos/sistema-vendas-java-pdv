@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author crist
+ * @author cristiano santos
  */
 public class ConexaoMySql {
     
