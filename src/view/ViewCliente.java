@@ -22,7 +22,7 @@ public class ViewCliente extends javax.swing.JFrame {
      */
     public ViewCliente() {
         initComponents();
-        carregarCliente();
+        this.carregarCliente();
         setLocationRelativeTo(null);
         this.habilitarDesabilitarCampos(false);
         this.limparCampos();
@@ -62,7 +62,8 @@ public class ViewCliente extends javax.swing.JFrame {
         jTextCep = new javax.swing.JFormattedTextField();
         jTextTelefone = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Clientes");
 
         jLabel1.setText("Codigo");
 
@@ -121,6 +122,7 @@ public class ViewCliente extends javax.swing.JFrame {
             jTbCliente.getColumnModel().getColumn(3).setMaxWidth(120);
         }
 
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_person_add_128_28581.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,6 +130,7 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
+        jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_sync_128_28843.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +138,7 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
+        jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_cancel_128_28318.png"))); // NOI18N
         jBtCancelar.setText("Cancelar");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +146,7 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
+        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_delete_128_28267.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +154,7 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
+        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_save_128_28731.png"))); // NOI18N
         jBtSalvar.setText("Salvar");
         jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,7 +277,7 @@ public class ViewCliente extends javax.swing.JFrame {
                     .addComponent(jBtCancelar)
                     .addComponent(jBtExcluir)
                     .addComponent(jBtSalvar))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -299,17 +305,18 @@ public class ViewCliente extends javax.swing.JFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        int linha = jTbCliente.getSelectedRow();
-        int codigoCliente = (int) jTbCliente.getValueAt(linha, 0);
         try {
+            int linha = jTbCliente.getSelectedRow();
+            int codigoCliente = (int) jTbCliente.getValueAt(linha, 0);
+
             if (controllerCliente.excluirClienteController(codigoCliente)) {
-            JOptionPane.showMessageDialog(this, "Cliente Excluído com Sucesso!", "INFORMAÇÃO", JOptionPane.INFORMATION_MESSAGE);
-            this.carregarCliente();
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao excluir cliente.", "ERRO", JOptionPane.ERROR_MESSAGE);
-        }
+                JOptionPane.showMessageDialog(this, "Cliente Excluído com Sucesso!", "INFORMAÇÃO", JOptionPane.INFORMATION_MESSAGE);
+                this.carregarCliente();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir cliente.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Codigo inválido ou nenhum registro selecionado.","ALERTA", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Codigo inválido ou nenhum registro selecionado.", "ALERTA", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
@@ -333,6 +340,7 @@ public class ViewCliente extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado.", "ALERTA", JOptionPane.WARNING_MESSAGE);
             this.habilitarDesabilitarCampos(false);
+            jBtNovo.setEnabled(true);
         }
         
     }//GEN-LAST:event_jBtAlterarActionPerformed
@@ -437,6 +445,7 @@ public class ViewCliente extends javax.swing.JFrame {
             this.carregarCliente();
             this.limparCampos();
             this.habilitarDesabilitarCampos(false);
+            jBtNovo.setEnabled(true);
         }else{
             JOptionPane.showMessageDialog(this, "Erro ao alterar cliente.","ERRO",JOptionPane.ERROR_MESSAGE);
         }

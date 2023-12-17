@@ -31,6 +31,7 @@ public class ViewProduto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.habilitarDesabilitarCampos(false);
         this.limparCampos();
+        
     }
 
     /**
@@ -114,6 +115,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         jLabel5.setText("Pesquisar:");
 
+        jBtPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_search_128_28722.png"))); // NOI18N
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +123,7 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
 
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_add_circle_outline_128_28123.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,6 +131,7 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
 
+        jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_sync_128_28843.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +139,7 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
 
+        jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_cancel_128_28318.png"))); // NOI18N
         jBtCancelar.setText("Cancelar");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +147,7 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
 
+        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_save_128_28731.png"))); // NOI18N
         jBtSalvar.setText("Salvar");
         jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +155,7 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
 
+        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ic_delete_128_28267.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,16 +278,20 @@ public class ViewProduto extends javax.swing.JFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        int linha = jTbProduto.getSelectedRow();
-        int codigoProduto = (int) jTbProduto.getValueAt(linha, 0);
-        
-        if(controllerProduto.excluirProdutoController(codigoProduto)){
-            JOptionPane.showMessageDialog(this, "Produto Excluído com Sucesso!", "INFORMAÇÃO", JOptionPane.INFORMATION_MESSAGE);
-            this.carregarProdutos();
-            this.limparCampos();
-            this.habilitarDesabilitarCampos(false);
-        }else{
-            JOptionPane.showMessageDialog(this, "Erro ao excluir produto.", "ERRO",JOptionPane.ERROR_MESSAGE);
+        try {
+            int linha = jTbProduto.getSelectedRow();
+            int codigoProduto = (int) jTbProduto.getValueAt(linha, 0);
+
+            if (controllerProduto.excluirProdutoController(codigoProduto)) {
+                JOptionPane.showMessageDialog(this, "Produto Excluído com Sucesso!", "INFORMAÇÃO", JOptionPane.INFORMATION_MESSAGE);
+                this.carregarProdutos();
+                this.limparCampos();
+                this.habilitarDesabilitarCampos(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir produto.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado.", "ALERTA", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
@@ -314,6 +325,7 @@ public class ViewProduto extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
             this.habilitarDesabilitarCampos(false);
+            jBtNovo.setEnabled(true);
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -384,6 +396,7 @@ public class ViewProduto extends javax.swing.JFrame {
             this.carregarProdutos();
             this.limparCampos();
             this.habilitarDesabilitarCampos(false);
+            jBtNovo.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao alterar Produto.", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
